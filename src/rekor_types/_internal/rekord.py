@@ -5,7 +5,6 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Optional, Union
 
 from pydantic import BaseModel, ConfigDict, Field, RootModel, StrictStr
 
@@ -75,7 +74,7 @@ class Data(BaseModel):
         populate_by_name=True,
     )
     hash: Hash = Field(..., description="Specifies the hash algorithm and value for the content")
-    content: Optional[str] = Field(
+    content: str | None = Field(
         default=None,
         description="Specifies the content inline within the document",
     )
@@ -90,7 +89,7 @@ class Data1(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    hash: Optional[Hash1] = Field(
+    hash: Hash1 | None = Field(
         default=None,
         description="Specifies the hash algorithm and value for the content",
     )
@@ -107,7 +106,7 @@ class RekordV001Schema(BaseModel):
         ...,
         description="Information about the detached signature associated with the entry",
     )
-    data: Union[Data, Data1] = Field(
+    data: Data | Data1 = Field(
         ...,
         description="Information about the content associated with the entry",
     )
