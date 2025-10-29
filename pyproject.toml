@@ -63,6 +63,9 @@ warn_unused_ignores = true
 [tool.ruff]
 line-length = 100
 lint.select = ["ALL"]
+lint.ignore = [
+    "COM812",  # not recommended with ruff formatter
+]
 lint.pydocstyle.convention = "pep257"
 
 [tool.ruff.lint.per-file-ignores]
