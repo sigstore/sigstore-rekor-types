@@ -63,25 +63,17 @@ warn_unused_ignores = true
 [tool.ruff]
 line-length = 100
 lint.select = ["ALL"]
+lint.pydocstyle.convention = "pep257"
 lint.ignore = [
     "COM812",  # not recommended with ruff formatter
 ]
-lint.pydocstyle.convention = "pep257"
 
 [tool.ruff.lint.per-file-ignores]
 "src/rekor_types/__init__.py" = [
     "TCH001", # False positive: imports are re-exports, not just for type hints.
 ]
 "src/rekor_types/_internal/*.py" = [
-    "A003",   # some fields shadow python builtins
-    "E501",   # handled by black, and catches some docstrings we can't autofix
+    "E501",   # handled by formatter, catches some docstrings we can't autofix
     "ERA001", # false positives
     "D400",   # overly opinionated docstrings
-    "D415",   # overly opinionated docstrings
-    "UP006",  # pydantic doesn't support PEP 585 below Python 3.9
-    "UP007",  # pydantic doesn't support PEP 604 below Python 3.10
-]
-"test/**/*.py" = [
-    "D",    # no docstrings in tests
-    "S101", # asserts are expected in tests
 ]
