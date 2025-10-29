@@ -5,7 +5,6 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Optional
 
 from pydantic import BaseModel, ConfigDict, Field, RootModel, StrictStr
 
@@ -48,17 +47,17 @@ class Data(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    payload_hash: Optional[PayloadHash] = Field(
+    payload_hash: PayloadHash | None = Field(
         default=None,
         alias="payloadHash",
         description="Specifies the hash algorithm and value for the content",
     )
-    envelope_hash: Optional[EnvelopeHash] = Field(
+    envelope_hash: EnvelopeHash | None = Field(
         default=None,
         alias="envelopeHash",
         description="Specifies the hash algorithm and value for the COSE envelope",
     )
-    aad: Optional[str] = Field(
+    aad: str | None = Field(
         default=None,
         description="Specifies the additional authenticated data required to verify the signature",
     )
@@ -70,13 +69,13 @@ class CoseV001Schema(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    message: Optional[str] = Field(default=None, description="The COSE Sign1 Message")
+    message: str | None = Field(default=None, description="The COSE Sign1 Message")
     public_key: str = Field(
         ...,
         alias="publicKey",
         description="The public key that can verify the signature",
     )
-    data: Optional[Data] = Field(
+    data: Data | None = Field(
         default=None,
         description="Information about the content associated with the entry",
     )

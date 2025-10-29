@@ -5,7 +5,6 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Optional, Union
 
 from pydantic import BaseModel, ConfigDict, Field, RootModel, StrictStr
 
@@ -83,17 +82,17 @@ class DsseV001Schema1(BaseModel):
         populate_by_name=True,
     )
     proposed_content: ProposedContent = Field(..., alias="proposedContent")
-    signatures: Optional[list[Signature]] = Field(
+    signatures: list[Signature] | None = Field(
         default=None,
         description="extracted collection of all signatures of the envelope's payload; elements will be sorted by lexicographical order of the base64 encoded signature strings",
         min_length=1,
     )
-    envelope_hash: Optional[EnvelopeHash] = Field(
+    envelope_hash: EnvelopeHash | None = Field(
         default=None,
         alias="envelopeHash",
         description="Specifies the hash algorithm and value encompassing the entire envelope sent to Rekor",
     )
-    payload_hash: Optional[PayloadHash] = Field(
+    payload_hash: PayloadHash | None = Field(
         default=None,
         alias="payloadHash",
         description="Specifies the hash algorithm and value covering the payload within the DSSE envelope",
@@ -112,7 +111,7 @@ class DsseV001Schema2(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    proposed_content: Optional[ProposedContent] = Field(default=None, alias="proposedContent")
+    proposed_content: ProposedContent | None = Field(default=None, alias="proposedContent")
     signatures: list[Signature] = Field(
         ...,
         description="extracted collection of all signatures of the envelope's payload; elements will be sorted by lexicographical order of the base64 encoded signature strings",
@@ -130,11 +129,11 @@ class DsseV001Schema2(BaseModel):
     )
 
 
-class DsseSchema(RootModel[Union[DsseV001Schema1, DsseV001Schema2]]):
+class DsseSchema(RootModel[DsseV001Schema1 | DsseV001Schema2]):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    root: Union[DsseV001Schema1, DsseV001Schema2] = Field(
+    root: DsseV001Schema1 | DsseV001Schema2 = Field(
         ...,
         description="log entry schema for dsse envelopes",
         title="DSSE Schema",

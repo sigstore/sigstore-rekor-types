@@ -5,7 +5,6 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Optional, Union
 
 from pydantic import BaseModel, ConfigDict, Field, RootModel, StrictStr
 
@@ -63,7 +62,7 @@ class Provenance(BaseModel):
         ...,
         description="Information about the included signature in the provenance file",
     )
-    content: Optional[str] = Field(
+    content: str | None = Field(
         default=None,
         description="Specifies the content of the provenance file inline within the document",
     )
@@ -75,7 +74,7 @@ class Provenance1(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    signature: Optional[Signature] = Field(
+    signature: Signature | None = Field(
         default=None,
         description="Information about the included signature in the provenance file",
     )
@@ -91,11 +90,11 @@ class Chart(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    hash: Optional[Hash] = Field(
+    hash: Hash | None = Field(
         default=None,
         description="Specifies the hash algorithm and value for the chart",
     )
-    provenance: Union[Provenance, Provenance1] = Field(
+    provenance: Provenance | Provenance1 = Field(
         ...,
         description="The provenance entry associated with the signed Helm Chart",
     )
