@@ -26,7 +26,7 @@ all:
 dev: $(VENV)/pyvenv.cfg
 
 $(VENV)/pyvenv.cfg: pyproject.toml
-	python -m venv env
+	python3 -m venv env
 	$(VENV_BIN)/python -m pip install --upgrade pip
 	$(VENV_BIN)/python -m pip install -e .[$(INSTALL_EXTRA)]
 
