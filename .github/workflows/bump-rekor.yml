@@ -40,7 +40,6 @@ jobs:
         with:
           commit-message: "[BOT] Regenerate for new Rekor version"
           branch: update-rekor
-          branch-suffix: timestamp
           title: "[BOT] bump Rekor"
           body: |
             This is an automated pull request, bumping the code generation
