@@ -5,7 +5,6 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Optional, Union
 
 from pydantic import BaseModel, ConfigDict, Field, RootModel, StrictStr
 
@@ -46,12 +45,12 @@ class Content(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    envelope: Optional[StrictStr] = Field(default=None, description="envelope")
-    hash: Optional[Hash] = Field(
+    envelope: StrictStr | None = Field(default=None, description="envelope")
+    hash: Hash | None = Field(
         default=None,
         description="Specifies the hash algorithm and value encompassing the entire signed envelope; this is computed by the rekor server, client-provided values are ignored",
     )
-    payload_hash: Optional[PayloadHash] = Field(
+    payload_hash: PayloadHash | None = Field(
         default=None,
         alias="payloadHash",
         description="Specifies the hash algorithm and value covering the payload within the DSSE envelope; this is computed by the rekor server, client-provided values are ignored",
@@ -78,7 +77,7 @@ class Signature(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    keyid: Optional[StrictStr] = Field(
+    keyid: StrictStr | None = Field(
         default=None,
         description="optional id of the key used to create the signature",
     )
@@ -96,7 +95,7 @@ class Envelope(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    payload: Optional[str] = Field(default=None, description="payload of the envelope")
+    payload: str | None = Field(default=None, description="payload of the envelope")
     payload_type: StrictStr = Field(
         ...,
         alias="payloadType",
@@ -140,11 +139,11 @@ class Content1(BaseModel):
         populate_by_name=True,
     )
     envelope: Envelope = Field(..., description="dsse envelope")
-    hash: Optional[Hash1] = Field(
+    hash: Hash1 | None = Field(
         default=None,
         description="Specifies the hash algorithm and value encompassing the entire signed envelope",
     )
-    payload_hash: Optional[PayloadHash1] = Field(
+    payload_hash: PayloadHash1 | None = Field(
         default=None,
         alias="payloadHash",
         description="Specifies the hash algorithm and value covering the payload within the DSSE envelope",
@@ -160,11 +159,11 @@ class IntotoV002Schema(BaseModel):
     content: Content1
 
 
-class IntotoSchema(RootModel[Union[IntotoV001Schema, IntotoV002Schema]]):
+class IntotoSchema(RootModel[IntotoV001Schema | IntotoV002Schema]):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    root: Union[IntotoV001Schema, IntotoV002Schema] = Field(
+    root: IntotoV001Schema | IntotoV002Schema = Field(
         ...,
         description="Intoto for Rekord objects",
         title="Intoto Schema",

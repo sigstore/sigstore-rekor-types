@@ -5,7 +5,6 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Optional, Union
 
 from pydantic import BaseModel, ConfigDict, Field, RootModel, StrictStr
 
@@ -68,7 +67,7 @@ class Archive(BaseModel):
         ...,
         description="Specifies the hash algorithm and value encompassing the entire signed archive",
     )
-    content: Optional[str] = Field(
+    content: str | None = Field(
         default=None,
         description="Specifies the archive inline within the document",
     )
@@ -83,7 +82,7 @@ class Archive1(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    hash: Optional[Hash1] = Field(
+    hash: Hash1 | None = Field(
         default=None,
         description="Specifies the hash algorithm and value encompassing the entire signed archive",
     )
@@ -96,11 +95,11 @@ class JarV001Schema(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    signature: Optional[Signature] = Field(
+    signature: Signature | None = Field(
         default=None,
         description="Information about the included signature in the JAR file",
     )
-    archive: Union[Archive, Archive1] = Field(
+    archive: Archive | Archive1 = Field(
         ...,
         description="Information about the archive associated with the entry",
     )

@@ -5,7 +5,6 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Optional, Union
 
 from pydantic import BaseModel, ConfigDict, Field, RootModel, StrictStr
 
@@ -47,12 +46,12 @@ class Package(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    pkginfo: Optional[dict[str, StrictStr]] = Field(
+    pkginfo: dict[str, StrictStr] | None = Field(
         default=None,
         description="Values of the .PKGINFO key / value pairs",
     )
     hash: Hash = Field(..., description="Specifies the hash algorithm and value for the package")
-    content: Optional[str] = Field(
+    content: str | None = Field(
         default=None,
         description="Specifies the package inline within the document",
     )
@@ -67,11 +66,11 @@ class Package1(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    pkginfo: Optional[dict[str, StrictStr]] = Field(
+    pkginfo: dict[str, StrictStr] | None = Field(
         default=None,
         description="Values of the .PKGINFO key / value pairs",
     )
-    hash: Optional[Hash1] = Field(
+    hash: Hash1 | None = Field(
         default=None,
         description="Specifies the hash algorithm and value for the package",
     )
@@ -89,7 +88,7 @@ class AlpineV001Schema(BaseModel):
         alias="publicKey",
         description="The public key that can verify the package signature",
     )
-    package: Union[Package, Package1] = Field(
+    package: Package | Package1 = Field(
         ...,
         description="Information about the package associated with the entry",
     )

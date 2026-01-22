@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Optional
+from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field, RootModel, StrictStr
 
@@ -39,7 +39,7 @@ class TufV001Schema(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    spec_version: Optional[StrictStr] = Field(default=None, description="TUF specification version")
+    spec_version: StrictStr | None = Field(default=None, description="TUF specification version")
     metadata: Metadata = Field(..., description="TUF metadata")
     root: Root = Field(
         ...,
