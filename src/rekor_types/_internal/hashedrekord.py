@@ -5,7 +5,6 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Optional
 
 from pydantic import BaseModel, ConfigDict, Field, RootModel, StrictStr
 
@@ -16,7 +15,7 @@ class PublicKey(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    content: Optional[str] = Field(
+    content: str | None = Field(
         default=None,
         description="Specifies the content of the public key or code signing certificate inline within the document",
     )
@@ -28,11 +27,11 @@ class Signature(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    content: Optional[str] = Field(
+    content: str | None = Field(
         default=None,
         description="Specifies the content of the signature inline within the document",
     )
-    public_key: Optional[PublicKey] = Field(
+    public_key: PublicKey | None = Field(
         default=None,
         alias="publicKey",
         description="The public key that can verify the signature; this can also be an X509 code signing certificate that contains the raw public key information",
@@ -69,7 +68,7 @@ class Data(BaseModel):
     model_config = ConfigDict(
         populate_by_name=True,
     )
-    hash: Optional[Hash] = Field(
+    hash: Hash | None = Field(
         default=None,
         description="Specifies the hash algorithm and value for the content",
     )
