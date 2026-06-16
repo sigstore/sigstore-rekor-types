@@ -15,9 +15,8 @@ classifiers = [
 ]
 dependencies = [
     "pydantic[email] >=2,<3",
-    "typing-extensions; python_version < '3.9'",
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 
 [project.optional-dependencies]
 doc = ["pdoc >= 14.2,< 16.0"]
