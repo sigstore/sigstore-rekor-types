@@ -41,6 +41,7 @@ jobs:
           commit-message: "[BOT] Regenerate for new Rekor version"
           branch: update-rekor
           title: "[BOT] bump Rekor"
+          signoff: true
           body: |
             This is an automated pull request, bumping the code generation
             to match the latest Rekor release.
