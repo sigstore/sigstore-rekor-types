@@ -23,7 +23,7 @@ doc = ["pdoc >= 14.2,< 17.0"]
 lint = [
     # NOTE: ruff is under active development, so we pin conservatively here
     # and let Dependabot periodically perform this update.
-    "ruff < 0.15.23",
+    "ruff < 0.16.1",
     "mypy >= 1.0",
 ]
 codegen = ["datamodel-code-generator>=0.25.2", "sigstore-rekor-types[lint]"]
@@ -66,6 +66,7 @@ lint.ignore = [
     "COM812", # incompatible with formatter
     "D203",   # incompatible with D211
     "D213",   # incompatible with D212
+    "CPY001",
 ]
 lint.pydocstyle.convention = "pep257"
 
