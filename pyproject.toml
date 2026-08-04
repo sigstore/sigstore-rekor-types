@@ -66,6 +66,7 @@ lint.ignore = [
     "COM812", # incompatible with formatter
     "D203",   # incompatible with D211
     "D213",   # incompatible with D212
+    "CPY001",
 ]
 lint.pydocstyle.convention = "pep257"
 
